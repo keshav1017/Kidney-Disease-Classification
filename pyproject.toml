@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cnnClassifier"
+version = "0.0.0"
+description = "A small python package for CNN app."
+authors = [{name = "keshav1017", email = "prasadkeshav003@gmail.com"}]
+readme = "README.md"
+
+[project.urls]
+"Bug Tracker" = "https://github.com/keshav1017/Kidney-Disease-Classification/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+dependencies={file = "requirements.txt"}
