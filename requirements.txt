@@ -1,6 +1,9 @@
 tensorflow==2.12.0
+ipykernel
 from_root
 pandas 
+boto3==1.34.131
+botocorew
 dvc
 mlflow==2.2.2
 notebook

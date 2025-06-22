@@ -1,14 +1,14 @@
 import os
 import sys
 import yaml
-from cnnClassifier import logger
+from cnnClassifier import logging
 from cnnClassifier import MyException
 import json
 import joblib
 from ensure import ensure_annotations
 from box import ConfigBox
 from pathlib import Path
-from typing import Any
+from typing import Any, List
 import base64
 
 @ensure_annotations
@@ -25,13 +25,13 @@ def read_yaml(path_to_yaml: Path) -> ConfigBox:
     try:
         with open(path_to_yaml) as file:
             content = yaml.safe_load(file)
-            logger.info(f"yaml file: {path_to_yaml} loaded successfully.")
+            logging.info(f"yaml file: {path_to_yaml} loaded successfully.")
             return ConfigBox(content)
     except Exception as e:
         raise MyException(e, sys) from e
 
 @ensure_annotations
-def create_directories(path_to_dir: list, verbose: bool=True) -> None:
+def create_directories(path_to_dir: list, verbose: bool=True):
     """
     Creates list of directories
 
@@ -41,10 +41,10 @@ def create_directories(path_to_dir: list, verbose: bool=True) -> None:
     for path in path_to_dir:
         os.makedirs(path, exist_ok=True)
         if verbose:
-            logger.info(f"Created directory at: {path}")
+            logging.info(f"Created directory at: {path}")
 
 @ensure_annotations
-def save_json(path: Path, data: dict) -> None:
+def save_json(path: Path, data: dict):
     """
     Save the json data.
 
@@ -56,7 +56,7 @@ def save_json(path: Path, data: dict) -> None:
     with open(path, 'w') as f:
         json.dump(data, f)
     
-    logger.info(f"json file saved at {path}")
+    logging.info(f"json file saved at {path}")
 
 @ensure_annotations
 def load_json(path: Path) -> ConfigBox:
@@ -73,11 +73,11 @@ def load_json(path: Path) -> ConfigBox:
     with open(path) as f:
         content = json.load(f)
     
-    logger.info(f"json file loaded successfully from : {path}")
+    logging.info(f"json file loaded successfully from : {path}")
     return ConfigBox(content)
 
 @ensure_annotations
-def save_bin(data: Any, path: Path) -> None:
+def save_bin(data: Any, path: Path):
     """
     Saves binary file
 
@@ -86,7 +86,7 @@ def save_bin(data: Any, path: Path) -> None:
         path (Path): path to binary file
     """
     joblib.dump(value=data, filename=path)
-    logger.info(f"binary file saved at: {path}")
+    logging.info(f"binary file saved at: {path}")
 
 @ensure_annotations
 def load_bin(path: Path) -> Any:
@@ -100,7 +100,7 @@ def load_bin(path: Path) -> Any:
         Any: object stored in the file
     """
     data = joblib.load(path)
-    logger.info(f"binary file loaded from: {path}")
+    logging.info(f"binary file loaded from: {path}")
     return data
 
 @ensure_annotations
