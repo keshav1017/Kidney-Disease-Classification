@@ -1,20 +1,23 @@
 import os
+
 from cnnClassifier.constants import *
-from cnnClassifier.utils.common import read_yaml, create_directories
 from cnnClassifier.entity.config_entity import (DataIngestionConfig,
+                                                EvaluationConfig,
                                                 PrepareBaseModelConfig,
                                                 TrainingConfig)
+from cnnClassifier.utils.common import create_directories, read_yaml
+
 
 class ConfigurationManager:
     def __init__(self,
                  config_filepath: Path = CONFIG_FILE_PATH,
                  params_filepath: Path = PARAMS_FILE_PATH):
-        
+
         self.config = read_yaml(config_filepath)
         self.params = read_yaml(params_filepath)
 
         create_directories([self.config.artifact_root])
-    
+
     def get_data_ingestion_config(self) -> DataIngestionConfig:
         config = self.config.data_ingestion
 
@@ -28,7 +31,7 @@ class ConfigurationManager:
         )
 
         return data_ingestion_config
-    
+
     def get_prepare_base_model_config(self) -> PrepareBaseModelConfig:
         config = self.config.prepare_base_model
 
@@ -65,3 +68,15 @@ class ConfigurationManager:
         )
 
         return training_config 
+
+    def get_evaluation_config(self) -> EvaluationConfig:
+        eval_config = EvaluationConfig(
+            path_to_model="./artifacts/training/model.h5",
+            training_data="./artifacts/data_ingestion/kidney-ct-scan-image",
+            mlflow_uri="https://dagshub.com/keshav1017/Kidney-Disease-Classification.mlflow/",
+            all_params=self.params,
+            params_image_size=self.params.IMAGE_SIZE,
+            params_batch_size=self.params.BATCH_SIZE,
+        )
+
+        return eval_config
