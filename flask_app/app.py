@@ -49,7 +49,7 @@ def predict(base64_string):
     result = np.argmax(model.predict(test_image), axis=1)
 
     prediction = "Tumor" if result[0] == 1 else "Normal"
-    return [{"image": prediction}]
+    return [{"image": prediction}] 
 
 
 @app.route("/predict", methods=["POST"])
