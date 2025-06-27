@@ -37,12 +37,12 @@ def predict(base64_string):
 
     # Decode base64 image string
     decoded = base64.b64decode(base64_string)
-    with open("./flask_app/input_image.jpg", "wb") as f:
+    with open("input_image.jpg", "wb") as f:
         f.write(decoded)
         f.close()
 
     # Load and preprocess image
-    imagename = "./flask_app/input_image.jpg"
+    imagename = "input_image.jpg"
     test_image = load_img(imagename, target_size=(224, 224))
     test_image = img_to_array(test_image)
     test_image = np.expand_dims(test_image, axis=0)
