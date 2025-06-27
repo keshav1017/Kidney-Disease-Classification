@@ -76,5 +76,5 @@ class Training:
             validation_steps=self.validation_steps,
             validation_data=self.valid_generator,
         )
-
+        self.save_model(path="models/model.h5", model=self.model)
         self.save_model(path=self.config.trained_model_path, model=self.model)
