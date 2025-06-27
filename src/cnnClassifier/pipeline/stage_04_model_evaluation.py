@@ -15,7 +15,7 @@ class ModelEvaluationPipeline:
         evaluation_config = config.get_evaluation_config()
         evaluation = ModelEvaluation(config=evaluation_config)
         evaluation.evaluate()
-        evaluation.log_into_mlflow()
+        # evaluation.log_into_mlflow()
 
 
 if __name__ == "__main__":
