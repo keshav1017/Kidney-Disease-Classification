@@ -37,7 +37,6 @@ stages:
       - AUGMENTATION
     outs:
       - artifacts/training/model.h5
-      - models/model.h5
 
 
   evaluation:
