@@ -12,13 +12,6 @@ os.putenv("LC_ALL", "en_US.UTF-8")
 app = Flask(__name__)
 CORS(app)
 
-
-class ClientApp:
-    def __init__(self):
-        self.filename = "inputImage.jpg"
-        self.classifier = PredictionPipeline(self.filename)
-
-
 @app.route("/", methods=["GET"])
 @cross_origin()
 def home():
@@ -36,13 +29,13 @@ def trainRoute():
 @app.route("/predict", methods=["POST"])
 @cross_origin()
 def predictRoute():
-    image = request.json["image"]
-    decodeImage(image, clApp.filename)
-    result = clApp.classifier.predict()
+    data = request.get_json()
+    image_data = data["image"]
+    pipeline = PredictionPipeline(image_data)
+    result = pipeline.predict()
     return jsonify(result)
 
 
 if __name__ == "__main__":
-    clApp = ClientApp()
 
     app.run(host="0.0.0.0", port=8080)  # for AWS

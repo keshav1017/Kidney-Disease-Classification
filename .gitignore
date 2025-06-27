@@ -194,3 +194,4 @@ cython_debug/
 .cursorindexingignore
 /artifacts/
 /notes.txt
+/input_image.jpg
